@@ -1,0 +1,54 @@
+@import url('https://fonts.googleapis.com/css2?family=Playwrite+GB+S:ital,wght@0,100..400;1,100..400&family=Poppins:ital,wght@0,100;0,200;0,300;0,400;0,500;0,600;0,700;0,800;0,900;1,100;1,200;1,300;1,400;1,500;1,600;1,700;1,800;1,900&display=swap');
+
+
+:root {
+    /* --clr-primary: rgb(54, 112, 199);
+    --clr-light: #f4f4f4;
+    --clr-dark: #333; */
+    --font-family: "Poppins", sans-serif;
+    --body-bg: rgb(252,251,247);
+}
+
+* {
+    margin: 0;
+    padding: 0;
+    box-sizing: border-box;
+    font-family: inherit;
+}
+
+body {
+    /* background-color: var(--body-bg); */
+    font-family: var(--font-family);
+    line-height: 1.6;
+    font-weight: 400;
+    font-size: 16px;
+}
+
+.container {
+    border: 1px solid red;
+    display: grid;
+    margin: 0 auto;
+    /* height: 600px; */
+    justify-content: center;
+    grid-template-columns: minmax(100px, 300px) minmax(250px, 500px);
+    margin-top: 30px;
+}
+
+li {
+    list-style: none;
+    /* border: 1px solid black; */
+}
+
+.todo-header {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+}
+
+.all-tasks {
+    border: 1px solid black;
+}
+
+.todo-list {
+    border: 1px solid green;
+}
