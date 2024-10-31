@@ -1,6 +1,6 @@
 export default class Todo {
-    constructor(id, name) {
-        this.id = id;
+    constructor(name) {
+        this.id = Date.now().toString();
         this.name = name;
         this.complete = false;
     }
@@ -15,5 +15,9 @@ export default class Todo {
 
     addPriority(level) {
         this.priority = level;
+    }
+
+    toggleComplete() {
+        this.complete = this.complete === false ? true : false;
     }
 }

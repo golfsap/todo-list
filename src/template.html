@@ -8,26 +8,55 @@
 <body>
     <div class="container">
         <div class="all-tasks">
-            <h2 class="task-list-title">My Lists</h2>
+            <div class="task-list-header">
+                <h2 class="task-list-title">My Lists</h2>
+                <form action="">
+                    <input id="new-list-input" type="text">
+                    <button id="new-list-btn">+</button>
+                </form>
+            </div>
             <ul id="list-container">
-                <li>Today</li>
+                <!-- <li>Today</li>
                 <li>School</li>
-                <li>Todo</li>
+                <li>Todo</li> -->
             </ul>
         </div>
         <div class="todo-list">
             <div class="todo-header">
-                <h2>Today</h2>
-                <p>3 tasks remaining</p>
+                <h2>Todos</h2>
+                <p id="active-task-count">3 tasks remaining</p>
             </div>
             <div class="todo-items">
-                <ul>
+                <ul id="todo-container">
                     <li>Fix paddles</li>
                     <li>Speedo contract</li>
                     <li>US Visa Application</li>
                 </ul>
             </div>
+            <div class="new-todo-creator">
+                <form action="">
+                    <input id="new-todo-input" type="text">
+                    <button id="new-todo-btn">+</button>
+                </form>
+            </div>
+            <div id="todo-details">
+                <form action="">
+                    <input type="text" placeholder="Add description">
+
+                </form>
+            </div>
         </div>
     </div>
+    <template id="todo-template">
+        <li>
+            <input type="checkbox" />
+            <label for=""></label>
+            <div class="expandable-wrapper">
+                <div class="todo-details">
+                     expandable content
+                </div>
+            </div>
+        </li>
+    </template>
 </body>
 </html>

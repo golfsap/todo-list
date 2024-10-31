@@ -34,6 +34,21 @@ body {
     margin-top: 30px;
 }
 
+.expandable-wrapper {
+    border: 1px solid black;
+    display: grid;
+    grid-template-rows: 0fr;
+    transition: grid-template-rows 1s ease-out;
+}
+
+.expandable-wrapper.is-open {
+    grid-template-rows: 1fr;
+}
+
+.todo-details {
+    overflow: hidden;
+}
+
 li {
     list-style: none;
     /* border: 1px solid black; */
@@ -51,4 +66,8 @@ li {
 
 .todo-list {
     border: 1px solid green;
+}
+
+.active-list {
+    font-weight: 600;
 }
