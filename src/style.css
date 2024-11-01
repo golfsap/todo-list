@@ -38,7 +38,7 @@ body {
     border: 1px solid black;
     display: grid;
     grid-template-rows: 0fr;
-    transition: grid-template-rows 1s ease-out;
+    transition: grid-template-rows 0.3s ease-out;
 }
 
 .expandable-wrapper.is-open {

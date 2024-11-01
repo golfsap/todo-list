@@ -31,23 +31,46 @@ export default function TodoApp() {
         selectedList = lists.find(list => list.id === listId);
     }
 
-    const switchSelectedTodo = (todoId) => {
-        selectedTodo = selectedList.tasks.find(todo => todo.id === todoId);
-    }
+    // const switchSelectedTodo = (todoId) => {
+    //     selectedTodo = selectedList.tasks.find(todo => todo.id === todoId);
+    // }
 
-    const deselectTodo = () => {
-        if (selectedTodo == null) return;
-        selectedTodo = null;
-    }
+    // const deselectTodo = () => {
+    //     if (selectedTodo == null) return;
+    //     selectedTodo = null;
+    // }
 
     const toggleTodoComplete = (todoId) => {
-        const todo = selectedList.tasks.find(todo => todo.id === todoId);
+        const todo = getTodo(todoId);
         todo.toggleComplete();
+    }
+
+    const addDescriptiontoTodo = (todoId, notes) => {
+        const todo = getTodo(todoId);
+        todo.addDescription(notes);
+        console.log(todo.description);
+    }
+
+    const setPrioritytoTodo = (todoId, priority) => {
+        const todo = getTodo(todoId);
+        todo.addPriority(priority);
+        console.log(todo.priority);
+    }
+
+    const setDueDatetoTodo = (todoId, date) => {
+        const todo = getTodo(todoId);
+        todo.addDueDate(date);
+        console.log(todo.dueDate);
+    }
+
+    const getTodo = (todoId) => {
+        // finds todo from selected list and returns
+        return selectedList.tasks.find(todo => todo.id === todoId);
     }
 
     const getSelectedList = () => selectedList;
 
-    const getSelectedTodo = () => selectedTodo;
+    // const getSelectedTodo = () => selectedTodo;
 
 
     return {
@@ -56,11 +79,11 @@ export default function TodoApp() {
         addTodo,
         addNewList,
         switchSelectedList,
-        switchSelectedTodo,
-        deselectTodo,
         getSelectedList,
-        getSelectedTodo,
-        toggleTodoComplete
+        toggleTodoComplete,
+        addDescriptiontoTodo,
+        setPrioritytoTodo,
+        setDueDatetoTodo
     };
 }
 

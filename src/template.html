@@ -39,21 +39,33 @@
                     <button id="new-todo-btn">+</button>
                 </form>
             </div>
-            <div id="todo-details">
+            <!-- <div id="todo-details">
                 <form action="">
                     <input type="text" placeholder="Add description">
 
                 </form>
-            </div>
+            </div> -->
         </div>
     </div>
     <template id="todo-template">
         <li>
-            <input type="checkbox" />
+            <input type="checkbox" class="checkbox"/>
             <label for=""></label>
             <div class="expandable-wrapper">
                 <div class="todo-details">
-                     expandable content
+                     <form action="">
+                        <label for="">Notes</label>
+                        <textarea name="notes" id=""></textarea>
+                        <label for="">Priority</label>
+                        <select name="Priority" id="">
+                            <option value="Urgent">Urgent</option>
+                            <option value="Important">Important</option>
+                            <option value="Low priority">Low priority</option>
+                            <option value="Done">Done</option>
+                        </select>
+                        <label for="">Due date</label>
+                        <input type="date" class="date">
+                     </form>
                 </div>
             </div>
         </li>
