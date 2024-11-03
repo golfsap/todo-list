@@ -18,13 +18,22 @@ export default function TodoApp() {
     }
     
     function addTodo(name) {
+        // returns the new todo id
         const newTodo = new Todo(name);
         selectedList.tasks.push(newTodo);
+        return newTodo.id;
     }
     
     function addNewList(name) {
+        // returns new list id
         const newList = createList(name);
         lists.push(newList);
+        return newList.id;
+    }
+
+    function getList(id) {
+        // returns list from id
+        return lists.find(list => list.id === id);
     }
 
     const switchSelectedList = (listId) => {
@@ -78,6 +87,8 @@ export default function TodoApp() {
         createList,
         addTodo,
         addNewList,
+        getList,
+        getTodo,
         switchSelectedList,
         getSelectedList,
         toggleTodoComplete,

@@ -18,21 +18,22 @@ newListBtn.addEventListener("click", e => {
     e.preventDefault();
     const listName = newListInput.value;
     if (listName === "" || listName == null) return;
-    todoApp.addNewList(listName);
+    const listId = todoApp.addNewList(listName);
     newListInput.value = null;
     // for debugging
     console.log(todoApp.getLists());
 
-    render();
+    renderNewList(listId);
+    // render();
 })
 
 newTodoBtn.addEventListener("click", e => {
     e.preventDefault();
     const todoName = newTodoInput.value;
     if (todoName === "" || todoName == null) return;
-    todoApp.addTodo(todoName);
+    const todoId = todoApp.addTodo(todoName);
     newTodoInput.value = null;
-    render();
+    renderNewTodo(todoId);
 })
 
 listContainer.addEventListener("click", e => {
@@ -49,16 +50,13 @@ todoContainer.addEventListener("click", e => {
         todoApp.toggleTodoComplete(todoId);
         renderTaskCount(todoApp.getSelectedList());
     }
-    else if (e.target.tagName.toLowerCase() === 'li') {
-        const todoId = e.target.dataset.todoId;
+    else if (e.target.classList.contains("todo-name")) {
+        const todoId = e.target.querySelector('input').id;
         toggleTodoDetails(todoId);
     }
-    // e.stopPropagation();
-    // render();
 })
 
 todoContainer.addEventListener("change", e => {
-    
     if (e.target.tagName.toLowerCase() === 'textarea') {
         const todoId = findTodoId(e);
         todoApp.addDescriptiontoTodo(todoId,e.target.value);
@@ -67,11 +65,13 @@ todoContainer.addEventListener("change", e => {
         const todoId = findTodoId(e);
         todoApp.setPrioritytoTodo(todoId,e.target.value);
         console.log(e.target.value);
+        renderTodoDetails(todoId);
     }
     else if (e.target.classList.contains("date")) {
         const todoId = findTodoId(e);
         todoApp.setDueDatetoTodo(todoId,e.target.value);
         console.log(e.target.value);
+        renderTodoDetails(todoId);
     }
 })
 
@@ -96,6 +96,43 @@ function renderLists() {
     })
 }
 
+function renderNewList(listId) {
+    const list = todoApp.getList(listId);
+
+    const listElement = document.createElement("li");
+    listElement.textContent = list.name;
+    listElement.dataset.listId = list.id;
+    listContainer.append(listElement);
+}
+
+function renderNewTodo(todoId) {
+    const todo = todoApp.getTodo(todoId);
+
+    const todoElement = document.importNode(todoTemplate.content, true);
+    const todoListElement = todoElement.querySelector("li");
+    todoListElement.dataset.todoId = todo.id;
+    const checkbox = todoElement.querySelector("input");
+    checkbox.id = todo.id;
+    checkbox.checked = todo.complete;
+    const labels = todoElement.querySelectorAll("label");
+    labels[0].htmlFor = todo.id;
+    labels[0].append(todo.name);
+    labels[1].htmlFor = `notes-${todo.id}`;
+    labels[2].htmlFor = `priority-${todo.id}`;
+    labels[3].htmlFor = `due-date-${todo.id}`;
+
+    const textArea = todoElement.querySelector("textarea");
+    // textArea.disabled = false;
+    textArea.id = `notes-${todo.id}`;
+
+    const dropDown = todoElement.querySelector("select");
+    dropDown.id = `priority-${todo.id}`;
+
+    const dueDate = todoElement.querySelector("input[type=date]");
+    dueDate.id = `due-date-${todo.id}`; 
+    todoContainer.appendChild(todoElement);
+}
+
 function renderTodos(selectedList) {
     selectedList.tasks.forEach(todo => {
         const todoElement = document.importNode(todoTemplate.content, true);
@@ -112,23 +149,30 @@ function renderTodos(selectedList) {
         labels[3].htmlFor = `due-date-${todo.id}`;
 
         const textArea = todoElement.querySelector("textarea");
-        textArea.disabled = false;
+        if (todo.description !== undefined) {
+            textArea.value = todo.description;
+        }
+        else textArea.value = '';
         textArea.id = `notes-${todo.id}`;
 
         const dropDown = todoElement.querySelector("select");
+        dropDown.value = todo.priority;
         dropDown.id = `priority-${todo.id}`;
 
         const dueDate = todoElement.querySelector("input[type=date]");
+        dueDate.value = todo.dueDate;
         dueDate.id = `due-date-${todo.id}`; 
-
-        // if a todo is selected, show details
-        // if (todoApp.getSelectedTodo() != null && todo.id === todoApp.getSelectedTodo().id ) {
-        //     const expandableWrapper = todoElement.querySelector(".expandable-wrapper");
-        //     expandableWrapper.classList.add("is-open");
-        // }
-        
         todoContainer.appendChild(todoElement);
     })
+}
+
+function renderTodoDetails(todoId) {
+    const todo = todoApp.getTodo(todoId);
+    const todoListElement = findTodoElement(todoId);
+    const priority = todoListElement.querySelector(".priority");
+    priority.textContent = todo.priority;
+    const dueDate = todoListElement.querySelector('.due-date');
+    dueDate.textContent = todo.dueDate;
 }
 
 function toggleTodoDetails(todoId) {
@@ -157,6 +201,10 @@ function clearElement(element) {
     while (element.firstChild) {
         element.removeChild(element.firstChild);
     }
+}
+
+function findTodoElement(todoId) {
+    return todoContainer.querySelector(`[data-todo-id='${todoId}']`);
 }
 
 function findTodoId(e) {
