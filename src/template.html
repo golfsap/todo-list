@@ -24,8 +24,13 @@
         </div>
         <div class="todo-list">
             <div class="todo-header">
-                <h2>Tasks</h2>
+                <h2 id="list-name">Tasks</h2>
                 <p id="active-task-count">3 tasks remaining</p>
+            </div>
+            <div class="list-headers">
+                <p>task</p>
+                <p>priority</p>
+                <p>due date</p>
             </div>
             <div class="todo-items">
                 <ul id="todo-container">
@@ -41,7 +46,7 @@
                     <button class="btn" id="new-todo-btn">+</button>
                 </form>
             </div>                
-            </div>
+            
             <!-- <div id="todo-details">
                 <form action="">
                     <input type="text" placeholder="Add description">
@@ -57,8 +62,8 @@
                     <input type="checkbox" class="checkbox"/>
                     <label for=""></label>
                 </div>
-                <div class="priority">priority level</div>
-                <div class="due-date">task due date</div>
+                <div class="priority"></div>
+                <div class="due-date"></div>
             </div>
             <div class="expandable-wrapper">
                 <div class="todo-details">
@@ -67,6 +72,7 @@
                         <textarea name="notes" id=""></textarea>
                         <label for="">Priority</label>
                         <select name="Priority" id="">
+                            <option value="" selected disabled hidden>Choose here</option>
                             <option value="Urgent">Urgent</option>
                             <option value="Important">Important</option>
                             <option value="Low priority">Low priority</option>

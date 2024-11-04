@@ -1,17 +1,28 @@
 import Todo from "./todo";
 
 export default function TodoApp() {
-    const lists = [{
+
+    const LOCAL_STORAGE_LIST_KEY = 'task.lists';
+
+    const lists = JSON.parse(localStorage.getItem(LOCAL_STORAGE_LIST_KEY)) || 
+    [{
         id: Date.now().toString(),
         name: "My first list",
         tasks: []
     }];
 
     let selectedList = lists[0];
-    let selectedTodo = null;
 
-    // for debugging
     const getLists = () => lists;
+
+    // const setLists = () => {
+    //     lists = JSON.parse(localStorage.getItem(LOCAL_STORAGE_LIST_KEY)) || 
+    //     [{
+    //         id: Date.now().toString(),
+    //         name: "My first list",
+    //         tasks: []
+    //     }];
+    // }
     
     function createList(name) {
         return { id: Date.now().toString(), name: name, tasks: [] };
@@ -79,8 +90,13 @@ export default function TodoApp() {
 
     const getSelectedList = () => selectedList;
 
+    const save = () => {
+        localStorage.setItem(LOCAL_STORAGE_LIST_KEY, JSON.stringify(lists));
+    }
+
     // const getSelectedTodo = () => selectedTodo;
 
+    // setLists();
 
     return {
         getLists,
@@ -94,7 +110,8 @@ export default function TodoApp() {
         toggleTodoComplete,
         addDescriptiontoTodo,
         setPrioritytoTodo,
-        setDueDatetoTodo
+        setDueDatetoTodo,
+        save
     };
 }
 

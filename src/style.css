@@ -6,6 +6,7 @@
      --clr-light: #f4f4f4; 
      --clr-white: #fff;
     --clr-dark: #333; 
+    --clr-gray: #D3D3D3;
     --font-family: "Poppins", sans-serif;
     --body-bg: rgb(252,251,247);
 }
@@ -78,7 +79,7 @@ li {
 
 .todo-main {
     padding: 10px 0;
-    border-bottom: 1px solid var(--clr-dark);
+    border-bottom: 1px solid var(--clr-gray);
     display: grid;
     grid-template-columns: 3fr 1fr 1fr;
 }
@@ -95,7 +96,7 @@ form {
     color: inherit;
 
     font-size: 1.5em;
-    font-weight: 500;
+    font-weight: 300;
     margin-right: 0.25em;
     transition: opacity 250ms ease-in;
 }
@@ -109,7 +110,7 @@ form {
     border: 0;
     color: inherit;
     border-bottom: 1px solid var(--clr-dark);
-    font-size: inherit;
+    font-size: 14px;
     outline: none;
     transition: border-bottom 150ms ease-in;
     order: 2;
@@ -128,6 +129,16 @@ form {
     display: flex;
     justify-content: space-between;
     align-items: center;
+}
+
+.list-headers {
+    display: grid;
+    grid-template-columns: 3fr 1fr 1fr;
+    text-transform: uppercase;
+    font-weight: 300;
+    font-size: 12px;
+    border-bottom: 1px solid var(--clr-gray);
+    padding: 10px 0;
 }
 
 .all-tasks {

@@ -8,8 +8,11 @@ const newListInput = document.getElementById("new-list-input");
 const newTodoBtn = document.getElementById("new-todo-btn");
 const newTodoInput = document.getElementById("new-todo-input");
 const todoContainer = document.getElementById("todo-container");
+const listName = document.getElementById("list-name");
 const taskCount = document.getElementById("active-task-count");
 const todoTemplate = document.getElementById("todo-template");
+
+const LOCAL_STORAGE_LIST_KEY = 'task.lists';
 
 const todoApp = TodoApp();
 
@@ -24,6 +27,7 @@ newListBtn.addEventListener("click", e => {
     console.log(todoApp.getLists());
 
     renderNewList(listId);
+    save();
     // render();
 })
 
@@ -34,6 +38,7 @@ newTodoBtn.addEventListener("click", e => {
     const todoId = todoApp.addTodo(todoName);
     newTodoInput.value = null;
     renderNewTodo(todoId);
+    todoApp.save();
 })
 
 listContainer.addEventListener("click", e => {
@@ -75,12 +80,22 @@ todoContainer.addEventListener("change", e => {
     }
 })
 
+function saveAndRender() {
+    render();
+    save();
+}
+
 function render() {
     clearElement(listContainer);
     renderLists();
     clearElement(todoContainer);
     renderTodos(todoApp.getSelectedList());
     renderTaskCount(todoApp.getSelectedList());
+    renderListName(todoApp.getSelectedList());
+}
+
+function save() {
+    localStorage.setItem(LOCAL_STORAGE_LIST_KEY, JSON.stringify(todoApp.getLists()));
 }
 
 function renderLists() {
@@ -158,10 +173,15 @@ function renderTodos(selectedList) {
         const dropDown = todoElement.querySelector("select");
         dropDown.value = todo.priority;
         dropDown.id = `priority-${todo.id}`;
+        const priority = todoListElement.querySelector(".priority");
+        priority.textContent = todo.priority;
 
         const dueDate = todoElement.querySelector("input[type=date]");
         dueDate.value = todo.dueDate;
         dueDate.id = `due-date-${todo.id}`; 
+        const dateLabel = todoListElement.querySelector(".due-date");
+        dateLabel.textContent = todo.dueDate;
+
         todoContainer.appendChild(todoElement);
     })
 }
@@ -195,6 +215,10 @@ function renderTaskCount(selectedList) {
     const remainingTasks = selectedList.tasks.filter(task => !task.complete === true).length;
 
     taskCount.textContent = `${remainingTasks} tasks remaining`;
+}
+
+function renderListName(selectedList) {
+    listName.textContent = selectedList.name;
 }
 
 function clearElement(element) {
