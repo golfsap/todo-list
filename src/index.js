@@ -7,6 +7,7 @@ const newListBtn = document.getElementById("new-list-btn");
 const newListInput = document.getElementById("new-list-input");
 const newTodoBtn = document.getElementById("new-todo-btn");
 const newTodoInput = document.getElementById("new-todo-input");
+const mainTasksContainer = document.querySelector(".todo-list");
 const todoContainer = document.getElementById("todo-container");
 const listName = document.getElementById("list-name");
 const taskCount = document.getElementById("active-task-count");
@@ -22,15 +23,7 @@ const todoApp = TodoApp();
 // DOM
 newListBtn.addEventListener("click", e => {
     e.preventDefault();
-    const listName = newListInput.value;
-    if (listName === "" || listName == null) return;
-    const listId = todoApp.addNewList(listName);
-    newListInput.value = null;
-    // for debugging
-    console.log(todoApp.getLists());
-
-    renderNewList(listId);
-    todoApp.save();
+    handleNewList();
 })
 
 newTodoBtn.addEventListener("click", e => {
@@ -96,7 +89,9 @@ deleteSection.addEventListener("click", (e) => {
         removeCompletedTasks();
     }
     else if (e.target.id === "delete-list") {
-        todoApp.deleteList();
+        handleDeleteList();
+        // todoApp.deleteList();
+        console.log(todoApp.getSelectedList());
         render();
     }
     todoApp.save();
@@ -248,6 +243,34 @@ function renderTaskCount(selectedList) {
 
 function renderListName(selectedList) {
     listName.textContent = selectedList.name;
+}
+
+function handleNewList () {
+    const listName = newListInput.value;
+    if (listName === "" || listName == null) return;
+    const listId = todoApp.addNewList(listName);
+    newListInput.value = null;
+    todoApp.save();
+    if (todoApp.getLists().length === 1) {
+        // adding list from empty container
+        mainTasksContainer.classList.remove("hidden");
+        render();
+    }
+    else {
+        renderNewList(listId);
+    }
+
+    // for debugging
+    console.log(todoApp.getLists());
+}
+
+function handleDeleteList () {
+    // deletes the currently selected list
+    todoApp.deleteList();
+    if (todoApp.getSelectedList() == null) {
+        // lists is empty, hide tasks container
+        mainTasksContainer.classList.add("hidden");
+    }
 }
 
 function clearElement(element) {

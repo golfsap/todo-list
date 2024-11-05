@@ -36,6 +36,9 @@ export default function TodoApp() {
         // returns new list id
         const newList = createList(name);
         lists.push(newList);
+        if (selectedList == null) {
+            selectedList = lists[0];
+        }
         return newList.id;
     }
 
@@ -43,7 +46,7 @@ export default function TodoApp() {
         // removes selectedList
         const index = lists.findIndex(list => list === selectedList);
         lists.splice(index, 1);
-        // logic for if lists is empty?
+        // logic for if lists is empty
         if (lists.length > 0) {
             selectedList = lists[0];
         }

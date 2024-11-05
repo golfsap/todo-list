@@ -129,10 +129,7 @@ form {
     display: flex;
     justify-content: space-between;
     align-items: center;
-    color: inherit;
 }
-
-
 
 .list-headers {
     display: grid;
@@ -184,4 +181,8 @@ form {
 
 .active-list {
     font-weight: 600;
+}
+
+.hidden {
+    display: none;
 }
