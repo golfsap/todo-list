@@ -11,6 +11,9 @@ const todoContainer = document.getElementById("todo-container");
 const listName = document.getElementById("list-name");
 const taskCount = document.getElementById("active-task-count");
 const todoTemplate = document.getElementById("todo-template");
+const deleteSection = document.querySelector(".delete-stuff"); 
+const clearTasksBtn = document.getElementById("clear-completed-tasks");
+const deleteListBtn = document.getElementById("delete-list");
 
 const LOCAL_STORAGE_LIST_KEY = 'task.lists';
 
@@ -27,8 +30,7 @@ newListBtn.addEventListener("click", e => {
     console.log(todoApp.getLists());
 
     renderNewList(listId);
-    save();
-    // render();
+    todoApp.save();
 })
 
 newTodoBtn.addEventListener("click", e => {
@@ -52,12 +54,20 @@ todoContainer.addEventListener("click", e => {
     console.log(e.target);
     if (e.target.classList.contains("checkbox")) {
         const todoId = e.target.id;
+        console.log(todoId);
         todoApp.toggleTodoComplete(todoId);
         renderTaskCount(todoApp.getSelectedList());
+        todoApp.save();
     }
     else if (e.target.classList.contains("todo-name")) {
         const todoId = e.target.querySelector('input').id;
         toggleTodoDetails(todoId);
+    }
+    else if (e.target.tagName.toLowerCase() === 'button') {
+        const todoId = e.target.dataset.btnId;
+        todoApp.deleteTodo(todoId);
+        todoApp.save();
+        render();
     }
 })
 
@@ -78,25 +88,39 @@ todoContainer.addEventListener("change", e => {
         console.log(e.target.value);
         renderTodoDetails(todoId);
     }
+    todoApp.save();
 })
 
-function saveAndRender() {
-    render();
-    save();
-}
+deleteSection.addEventListener("click", (e) => {
+    if (e.target.id === "clear-completed-tasks") {
+        removeCompletedTasks();
+    }
+    else if (e.target.id === "delete-list") {
+        todoApp.deleteList();
+        render();
+    }
+    todoApp.save();
+})
+
+// function saveAndRender() {
+//     render();
+//     save();
+// }
 
 function render() {
     clearElement(listContainer);
     renderLists();
     clearElement(todoContainer);
+
+    if (!todoApp.getSelectedList()) return;
     renderTodos(todoApp.getSelectedList());
     renderTaskCount(todoApp.getSelectedList());
     renderListName(todoApp.getSelectedList());
 }
 
-function save() {
-    localStorage.setItem(LOCAL_STORAGE_LIST_KEY, JSON.stringify(todoApp.getLists()));
-}
+// function save() {
+//     localStorage.setItem(LOCAL_STORAGE_LIST_KEY, JSON.stringify(todoApp.getLists()));
+// }
 
 function renderLists() {
     const lists = todoApp.getLists();
@@ -129,6 +153,8 @@ function renderNewTodo(todoId) {
     const checkbox = todoElement.querySelector("input");
     checkbox.id = todo.id;
     checkbox.checked = todo.complete;
+    const deleteBtn = todoElement.querySelector(".delete-todo");
+    deleteBtn.dataset.btnId = todo.id;
     const labels = todoElement.querySelectorAll("label");
     labels[0].htmlFor = todo.id;
     labels[0].append(todo.name);
@@ -149,6 +175,7 @@ function renderNewTodo(todoId) {
 }
 
 function renderTodos(selectedList) {
+    if (!selectedList) return;
     selectedList.tasks.forEach(todo => {
         const todoElement = document.importNode(todoTemplate.content, true);
         const todoListElement = todoElement.querySelector("li");
@@ -156,6 +183,8 @@ function renderTodos(selectedList) {
         const checkbox = todoElement.querySelector("input");
         checkbox.id = todo.id;
         checkbox.checked = todo.complete;
+        const deleteBtn = todoElement.querySelector(".delete-todo");
+        deleteBtn.dataset.btnId = todo.id;
         const labels = todoElement.querySelectorAll("label");
         labels[0].htmlFor = todo.id;
         labels[0].append(todo.name);

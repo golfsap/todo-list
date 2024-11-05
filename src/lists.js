@@ -14,15 +14,6 @@ export default function TodoApp() {
     let selectedList = lists[0];
 
     const getLists = () => lists;
-
-    // const setLists = () => {
-    //     lists = JSON.parse(localStorage.getItem(LOCAL_STORAGE_LIST_KEY)) || 
-    //     [{
-    //         id: Date.now().toString(),
-    //         name: "My first list",
-    //         tasks: []
-    //     }];
-    // }
     
     function createList(name) {
         return { id: Date.now().toString(), name: name, tasks: [] };
@@ -30,9 +21,15 @@ export default function TodoApp() {
     
     function addTodo(name) {
         // returns the new todo id
-        const newTodo = new Todo(name);
+        const newTodo = Todo(name);
         selectedList.tasks.push(newTodo);
         return newTodo.id;
+    }
+
+    function deleteTodo (todoId) {
+        // delete todo from selected list
+        const index = selectedList.tasks.findIndex(todo => todo.id === todoId);
+        selectedList.tasks.splice(index, 1);
     }
     
     function addNewList(name) {
@@ -42,6 +39,19 @@ export default function TodoApp() {
         return newList.id;
     }
 
+    const deleteList = () => {
+        // removes selectedList
+        const index = lists.findIndex(list => list === selectedList);
+        lists.splice(index, 1);
+        // logic for if lists is empty?
+        if (lists.length > 0) {
+            selectedList = lists[0];
+        }
+        else {
+            selectedList = null;
+        }
+    }
+ 
     function getList(id) {
         // returns list from id
         return lists.find(list => list.id === id);
@@ -62,24 +72,28 @@ export default function TodoApp() {
 
     const toggleTodoComplete = (todoId) => {
         const todo = getTodo(todoId);
-        todo.toggleComplete();
+        todo.complete = todo.complete === false ? true : false;
+        // todo.toggleComplete();
     }
 
     const addDescriptiontoTodo = (todoId, notes) => {
         const todo = getTodo(todoId);
-        todo.addDescription(notes);
+        todo.description = notes;
+        // todo.addDescription(notes);
         console.log(todo.description);
     }
 
     const setPrioritytoTodo = (todoId, priority) => {
         const todo = getTodo(todoId);
-        todo.addPriority(priority);
+        todo.priority = priority;
+        // todo.addPriority(priority);
         console.log(todo.priority);
     }
 
     const setDueDatetoTodo = (todoId, date) => {
         const todo = getTodo(todoId);
-        todo.addDueDate(date);
+        todo.dueDate = date;
+        // todo.addDueDate(date);
         console.log(todo.dueDate);
     }
 
@@ -94,15 +108,13 @@ export default function TodoApp() {
         localStorage.setItem(LOCAL_STORAGE_LIST_KEY, JSON.stringify(lists));
     }
 
-    // const getSelectedTodo = () => selectedTodo;
-
-    // setLists();
-
     return {
         getLists,
         createList,
         addTodo,
+        deleteTodo,
         addNewList,
+        deleteList,
         getList,
         getTodo,
         switchSelectedList,

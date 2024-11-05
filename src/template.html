@@ -45,14 +45,11 @@
                     placeholder="new task name">
                     <button class="btn" id="new-todo-btn">+</button>
                 </form>
-            </div>                
-            
-            <!-- <div id="todo-details">
-                <form action="">
-                    <input type="text" placeholder="Add description">
-
-                </form>
-            </div> -->
+            </div> 
+            <div class="delete-stuff">
+                <button id="clear-completed-tasks">Clear completed tasks</button>
+                <button id="delete-list">Delete list</button>
+            </div>               
         </div>
     </div>
     <template id="todo-template">
@@ -64,6 +61,7 @@
                 </div>
                 <div class="priority"></div>
                 <div class="due-date"></div>
+                <button class="delete-todo">X</button>
             </div>
             <div class="expandable-wrapper">
                 <div class="todo-details">
