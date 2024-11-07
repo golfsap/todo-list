@@ -32,6 +32,7 @@ newTodoBtn.addEventListener("click", e => {
     if (todoName === "" || todoName == null) return;
     const todoId = todoApp.addTodo(todoName);
     newTodoInput.value = null;
+    // render new todo doesnt update task count
     renderNewTodo(todoId);
     todoApp.save();
 })
@@ -245,7 +246,7 @@ function renderListName(selectedList) {
     listName.textContent = selectedList.name;
 }
 
-function handleNewList () {
+function handleNewList() {
     const listName = newListInput.value;
     if (listName === "" || listName == null) return;
     const listId = todoApp.addNewList(listName);
@@ -264,7 +265,7 @@ function handleNewList () {
     console.log(todoApp.getLists());
 }
 
-function handleDeleteList () {
+function handleDeleteList() {
     // deletes the currently selected list
     todoApp.deleteList();
     if (todoApp.getSelectedList() == null) {
@@ -272,6 +273,11 @@ function handleDeleteList () {
         mainTasksContainer.classList.add("hidden");
     }
 }
+
+function removeCompletedTasks() {
+    todoApp.clearCompletedTodos();
+    render();    
+} 
 
 function clearElement(element) {
     while (element.firstChild) {

@@ -114,6 +114,7 @@ form {
     outline: none;
     transition: border-bottom 150ms ease-in;
     order: 2;
+    width: 200px;
     /* padding-left: 6px; */
 }
 

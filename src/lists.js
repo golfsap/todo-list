@@ -106,6 +106,10 @@ export default function TodoApp() {
         return selectedList.tasks.find(todo => todo.id === todoId);
     }
 
+    const clearCompletedTodos = () => {
+        selectedList.tasks.splice(0, selectedList.tasks.length, ...selectedList.tasks.filter(todo => todo.complete === false));
+    }
+
     const getSelectedList = () => selectedList;
 
     const save = () => {
@@ -127,6 +131,7 @@ export default function TodoApp() {
         addDescriptiontoTodo,
         setPrioritytoTodo,
         setDueDatetoTodo,
+        clearCompletedTodos,
         save
     };
 }
