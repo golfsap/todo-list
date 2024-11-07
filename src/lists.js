@@ -4,12 +4,22 @@ export default function TodoApp() {
 
     const LOCAL_STORAGE_LIST_KEY = 'task.lists';
 
-    const lists = JSON.parse(localStorage.getItem(LOCAL_STORAGE_LIST_KEY)) || 
-    [{
-        id: Date.now().toString(),
-        name: "My first list",
-        tasks: []
-    }];
+    const initializeLists = () => {
+        let lists = JSON.parse(localStorage.getItem(LOCAL_STORAGE_LIST_KEY));
+
+        if (!lists || lists.length === 0) {
+            return [{
+                id: Date.now().toString(),
+                name: "My first list",
+                tasks: []
+            }];
+        }
+        else {
+            return lists;
+        }
+    }
+
+    const lists = initializeLists();
 
     let selectedList = lists[0];
 
@@ -63,15 +73,6 @@ export default function TodoApp() {
     const switchSelectedList = (listId) => {
         selectedList = lists.find(list => list.id === listId);
     }
-
-    // const switchSelectedTodo = (todoId) => {
-    //     selectedTodo = selectedList.tasks.find(todo => todo.id === todoId);
-    // }
-
-    // const deselectTodo = () => {
-    //     if (selectedTodo == null) return;
-    //     selectedTodo = null;
-    // }
 
     const toggleTodoComplete = (todoId) => {
         const todo = getTodo(todoId);

@@ -288,8 +288,6 @@ function findTodoId(e) {
     return e.target.parentNode.parentNode.parentNode.parentNode.dataset.todoId;
 }
 
-// addNewList("My first list");
+// localStorage.clear();
 render();
 console.log(todoApp.getLists());
-// addTodo("Shower", lists[0]);
-// console.log(lists[0].tasks);
