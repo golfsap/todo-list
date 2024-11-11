@@ -291,7 +291,7 @@ function findTodoElement(todoId) {
 
 function findTodoId(e) {
     // returns todo Id for form details event 
-    return e.target.parentNode.parentNode.parentNode.parentNode.dataset.todoId;
+    return e.target.parentNode.parentNode.parentNode.parentNode.parentNode.dataset.todoId;
 }
 
 // localStorage.clear();
