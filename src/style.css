@@ -245,3 +245,20 @@ form {
     font-weight: 400;
     font-size: 14px;
 }
+
+.priority.urgent {
+    background-color: #ff2c2c;
+    /* color: #ff2c2c; */
+}
+
+.priority.important {
+    background-color: #ffa500;
+}
+
+.priority.low-priority {
+    background-color: #ffde21;
+}
+
+.priority.done {
+    background-color: #4cbb17;
+}

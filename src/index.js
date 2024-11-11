@@ -216,6 +216,7 @@ function renderTodoDetails(todoId) {
     const todoListElement = findTodoElement(todoId);
     const priority = todoListElement.querySelector(".priority");
     priority.textContent = todo.priority;
+    addPriorityColors(priority, todo.priority);
     const dueDate = todoListElement.querySelector('.due-date');
     dueDate.textContent = todo.dueDate;
 }
@@ -292,6 +293,26 @@ function findTodoElement(todoId) {
 function findTodoId(e) {
     // returns todo Id for form details event 
     return e.target.parentNode.parentNode.parentNode.parentNode.parentNode.dataset.todoId;
+}
+
+function addPriorityColors(element, priority) {
+    if (priority == null || priority === '') return;
+    // remove existing class/classes
+    element.classList.remove("urgent", "important", "low-priority", "done");
+    switch (priority) {
+        case "Urgent":
+            element.classList.add("urgent");
+            break;
+        case "Important":
+            element.classList.add("important");
+            break;
+        case "Low priority":
+            element.classList.add("low-priority");
+            break;
+        case "Done":
+            element.classList.add("done");
+            break;
+    }
 }
 
 // localStorage.clear();
