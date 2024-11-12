@@ -170,6 +170,7 @@ form {
     display: flex;
     justify-content: space-between;
     align-items: center;
+    margin: 5px;
 }
 
 .list-headers {
@@ -246,19 +247,33 @@ form {
     font-size: 14px;
 }
 
+.due-date {
+    font-size: 14px;
+}
+
+.priority {
+    border-radius: 20px;
+    text-align: center;
+    font-size: 14px;
+    margin: 0 7px;
+}
+
 .priority.urgent {
     background-color: #ff2c2c;
-    /* color: #ff2c2c; */
+    color: var(--clr-light);
 }
 
 .priority.important {
+    color: var(--clr-dark);
     background-color: #ffa500;
 }
 
 .priority.low-priority {
+    color: var(--clr-dark);
     background-color: #ffde21;
 }
 
 .priority.done {
+    color: var(--clr-dark);
     background-color: #4cbb17;
 }

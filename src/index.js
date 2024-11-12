@@ -114,10 +114,6 @@ function render() {
     renderListName(todoApp.getSelectedList());
 }
 
-// function save() {
-//     localStorage.setItem(LOCAL_STORAGE_LIST_KEY, JSON.stringify(todoApp.getLists()));
-// }
-
 function renderLists() {
     const lists = todoApp.getLists();
     lists.forEach(list => {
@@ -159,7 +155,6 @@ function renderNewTodo(todoId) {
     labels[3].htmlFor = `due-date-${todo.id}`;
 
     const textArea = todoElement.querySelector("textarea");
-    // textArea.disabled = false;
     textArea.id = `notes-${todo.id}`;
 
     const dropDown = todoElement.querySelector("select");
@@ -200,7 +195,7 @@ function renderTodos(selectedList) {
         dropDown.id = `priority-${todo.id}`;
         const priority = todoListElement.querySelector(".priority");
         priority.textContent = todo.priority;
-
+        addPriorityColors(priority, todo.priority);
         const dueDate = todoElement.querySelector("input[type=date]");
         dueDate.value = todo.dueDate;
         dueDate.id = `due-date-${todo.id}`; 
