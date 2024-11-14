@@ -77,27 +77,23 @@ export default function TodoApp() {
     const toggleTodoComplete = (todoId) => {
         const todo = getTodo(todoId);
         todo.complete = todo.complete === false ? true : false;
-        // todo.toggleComplete();
     }
 
     const addDescriptiontoTodo = (todoId, notes) => {
         const todo = getTodo(todoId);
         todo.description = notes;
-        // todo.addDescription(notes);
         console.log(todo.description);
     }
 
     const setPrioritytoTodo = (todoId, priority) => {
         const todo = getTodo(todoId);
         todo.priority = priority;
-        // todo.addPriority(priority);
         console.log(todo.priority);
     }
 
     const setDueDatetoTodo = (todoId, date) => {
         const todo = getTodo(todoId);
         todo.dueDate = date;
-        // todo.addDueDate(date);
         console.log(todo.dueDate);
     }
 

@@ -1,5 +1,4 @@
 import "./style.css";
-// import Todo from "./todo";
 import TodoApp from "./lists";
 
 const listContainer = document.getElementById("list-container");
@@ -16,8 +15,6 @@ const deleteSection = document.querySelector(".delete-stuff");
 const clearTasksBtn = document.getElementById("clear-completed-tasks");
 const deleteListBtn = document.getElementById("delete-list");
 
-const LOCAL_STORAGE_LIST_KEY = 'task.lists';
-
 const todoApp = TodoApp();
 
 // DOM
@@ -32,8 +29,8 @@ newTodoBtn.addEventListener("click", e => {
     if (todoName === "" || todoName == null) return;
     const todoId = todoApp.addTodo(todoName);
     newTodoInput.value = null;
-    // render new todo doesnt update task count
     renderNewTodo(todoId);
+    renderTaskCount(todoApp.getSelectedList());
     todoApp.save();
 })
 
@@ -73,13 +70,11 @@ todoContainer.addEventListener("change", e => {
     else if (e.target.tagName.toLowerCase() === 'select') {
         const todoId = findTodoId(e);
         todoApp.setPrioritytoTodo(todoId,e.target.value);
-        console.log(e.target.value);
         renderTodoDetails(todoId);
     }
     else if (e.target.classList.contains("date")) {
         const todoId = findTodoId(e);
         todoApp.setDueDatetoTodo(todoId,e.target.value);
-        console.log(e.target.value);
         renderTodoDetails(todoId);
     }
     todoApp.save();
@@ -91,17 +86,10 @@ deleteSection.addEventListener("click", (e) => {
     }
     else if (e.target.id === "delete-list") {
         handleDeleteList();
-        // todoApp.deleteList();
-        console.log(todoApp.getSelectedList());
         render();
     }
     todoApp.save();
 })
-
-// function saveAndRender() {
-//     render();
-//     save();
-// }
 
 function render() {
     clearElement(listContainer);
@@ -129,7 +117,6 @@ function renderLists() {
 
 function renderNewList(listId) {
     const list = todoApp.getList(listId);
-
     const listElement = document.createElement("li");
     listElement.textContent = list.name;
     listElement.dataset.listId = list.id;
@@ -138,7 +125,6 @@ function renderNewList(listId) {
 
 function renderNewTodo(todoId) {
     const todo = todoApp.getTodo(todoId);
-
     const todoElement = document.importNode(todoTemplate.content, true);
     const todoListElement = todoElement.querySelector("li");
     todoListElement.dataset.todoId = todo.id;
@@ -222,16 +208,6 @@ function toggleTodoDetails(todoId) {
         wrapper.classList.toggle("is-open");
 }
 
-// function setTodoDetails() {
-//     const todoDetailsElement = document.querySelector(".todo-details");
-//     const labels = todoDetailsElement.querySelectorAll("label");
-//     labels[0].htmlFor = `notes-${todoApp.getSelectedTodo().id}`;
-    
-//     labels[1].htmlFor = `priority-${todoApp.getSelectedTodo().id}`;
-
-//     labels[2].htmlFor = `due-date-${todoApp.getSelectedTodo().id}`;
-// }
-
 function renderTaskCount(selectedList) {
     const remainingTasks = selectedList.tasks.filter(task => !task.complete === true).length;
 
@@ -256,9 +232,6 @@ function handleNewList() {
     else {
         renderNewList(listId);
     }
-
-    // for debugging
-    console.log(todoApp.getLists());
 }
 
 function handleDeleteList() {

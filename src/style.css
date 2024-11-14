@@ -2,7 +2,6 @@
 
 
 :root {
-    /* --clr-primary: rgb(54, 112, 199); */
      --clr-light: #f4f4f4; 
      --clr-white: #fff;
     --clr-dark: #333; 
@@ -20,9 +19,6 @@
 
 body {
     background-color: var(--body-bg);
-    /* background-color: #c9d6ff; */
-    /* background: url("./blue_sand_background.JPG"); */
-    /* background-size: 100%; */
     background: linear-gradient(to right, #e2e2e2, #c9d6ff);
     font-family: var(--font-family);
     line-height: 1.6;
@@ -31,19 +27,12 @@ body {
 }
 
 .container {
-    /* border: 1px solid red; */
     display: grid;
-    /* margin: 0 auto; */
     height: 100vh;
-    /* justify-content: center; */
     grid-template-columns: 250px 1fr;
-    /* grid-template-columns: minmax(100px, 300px) minmax(250px, 500px); */
-    /* margin-top: 30px; */
 }
 
 .expandable-wrapper {
-    /* position: relative; */
-    /* border: 1px solid black; */
     display: grid;
     grid-template-rows: 0fr;
     transition: grid-template-rows 0.3s ease-out;
@@ -88,7 +77,6 @@ textarea {
     background-color: inherit;
     cursor: pointer;
     color: var(--clr-dark);
-    /* padding: 4px; */
 }
 
 .delete-todo:hover {
@@ -98,7 +86,6 @@ textarea {
 
 li {
     list-style: none;
-    /* border: 1px solid black; */
 }
 
 #list-container {
@@ -108,8 +95,6 @@ li {
 #list-container li {
     cursor: pointer;
     list-style: circle;
-    /* letter-spacing: 2px; */
-    /* padding: 6px 0; */
 }
 
 #list-container li:hover {
@@ -154,8 +139,8 @@ form {
     outline: none;
     transition: border-bottom 150ms ease-in;
     order: 2;
-    width: 200px;
-    /* padding-left: 6px; */
+    width: 60%;
+    margin-right: 10px;
 }
 
 .new-input:focus {
@@ -164,6 +149,10 @@ form {
 
 .new-input:focus::placeholder {
     opacity: 0.2;
+}
+
+.new-todo-creator {
+    padding-bottom: 10px;
 }
 
 .todo-header {
@@ -185,40 +174,20 @@ form {
 
 .all-tasks {
     background-color: var(--clr-white);
-    /* border: 1px solid black; */
     padding-left: 20px;
-    /* letter-spacing: 0.5px; */
 }
 
 .task-list-header {
     padding-top: 30px;
     padding-bottom: 15px;
-    /* letter-spacing: 0.5px; */
 }
 
 .todo-list {
-    /* border: 1px solid green; */
     margin: 30px;
     padding: 10px;
     background-color: var(--clr-white);
     border-radius: 10px;
     box-shadow: 0 5px 5px rgba(0, 0, 0, 0.1);
-}
-
-.glass {
-    /* background-color: rgba(255, 255, 255, .15);  
-    backdrop-filter: blur(5px); */
-    /* width: 500px;
-    height: 300px;
-    margin: 200px auto;
-    border: 1px solid rgba(255, 255, 255, 0.18); */
-
-    background: linear-gradient(135deg, rgba(255, 255, 255, 0.1), rgba(255, 255, 255, 0));
-    backdrop-filter: blur(10px);
-    -webkit-backdrop-filter: blur(10px);
-    /* border-radius: 20px; */
-    /* box-shadow: 0 8px 32px 0 rgba(0,0,0, 0.37); */
-
 }
 
 .active-list {
