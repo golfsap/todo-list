@@ -7,5 +7,7 @@ The todo list application has a default starting list called "my first list" and
 
 Each todo can be clicked on (inside the space between the name and the priority tag) which will expand and allow the user to enter detailed notes, set priority tags and due-dates which are all optional.
 
+[Live Demo](https://golfsap.github.io/todo-list/)
+
 ## Screenshot
 ![Screenshot](./src/screenshot.png)
